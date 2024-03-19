@@ -19,7 +19,9 @@ export const signup = async(req,res)=>{
        
 
         if(user){
+            // console.log('Username already exist');
             return res.status(400).json({error:"Username already exist"})
+            
         }
         // Hash Password
 
@@ -45,10 +47,12 @@ export const signup = async(req,res)=>{
         
         if(newUser){
             //  Generate JWT Token Here
-            console.log(newUser._id);
+            // console.log(newUser._id);
             
             generateTokenAndSetCookie(newUser._id, res)
             await newUser.save()
+            console.log('User saved succesfully');
+            
             res.status(201).json({
                 _id: newUser._id,
                 fullName:newUser.fullName,
